@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: johnny-johnny
+  ai:
+    openai:
+      api-key: ${OPEN_API_KEY}
+server:
+  port: 8080
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+app:
+  llm:
+    provider: openai
+    openai:
+      model: GPT_5_4
+      max-completion-tokens: 450
+
+   

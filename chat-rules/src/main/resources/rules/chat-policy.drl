@@ -1,0 +1,66 @@
+package rules
+
+import com.grant.chatbot.rules.facts.InboundMessageFact;
+import com.grant.chatbot.rules.facts.PersonaDecisionFact;
+import com.grant.chatbot.rules.facts.CandidateReplyFact;
+
+rule "Coworker messages stay concise"
+when
+    $m : InboundMessageFact(senderType == "COWORKER")
+    $d : PersonaDecisionFact()
+then
+    $d.setPersonaVariant("professional_concise");
+    $d.setHumorAllowed(false);
+    $d.setMaxWords(40);
+    update($d);
+end
+
+rule "Friend messages can be more casual"
+when
+    $m : InboundMessageFact(senderType == "FRIEND")
+    $d : PersonaDecisionFact()
+then
+    $d.setPersonaVariant("casual_warm");
+    $d.setHumorAllowed(true);
+    $d.setMaxWords(70);
+    update($d);
+end
+
+rule "Sensitive topics require approval"
+when
+    $m : InboundMessageFact(containsSensitiveTopic == true)
+    $d : PersonaDecisionFact()
+then
+    $d.setApprovalRequired(true);
+    $d.setAutoSendAllowed(false);
+    update($d);
+end
+
+rule "Conflict signals require approval"
+when
+    $m : InboundMessageFact(containsConflictSignals == true)
+    $d : PersonaDecisionFact()
+then
+    $d.setApprovalRequired(true);
+    $d.setAutoSendAllowed(false);
+    update($d);
+end
+
+rule "Reject overlong candidate"
+when
+    $d : PersonaDecisionFact($max : maxWords)
+    $c : CandidateReplyFact(wordCount > $max)
+then
+    $c.setRejected(true);
+    $c.setRejectionReason("Reply exceeds max word count");
+    update($c);
+end
+
+rule "Reject high risk candidate"
+when
+    $c : CandidateReplyFact(riskScore > 0.75)
+then
+    $c.setRejected(true);
+    $c.setRejectionReason("Reply risk score too high");
+    update($c);
+end

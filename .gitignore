@@ -1,0 +1,49 @@
+# --- Maven ---
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# --- Spring Tool Suite / Eclipse ---
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.factorypath
+.project
+.classpath
+
+# Spring Boot specific (STS4)
+.sts4-cache/
+.springBeans
+
+# --- Compiled Java ---
+*.class
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# --- Log files ---
+*.log
+/logs
+
+# --- Operating System ---
+.DS_Store
+Thumbs.db
+
