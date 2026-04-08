@@ -4,6 +4,8 @@ import com.grant.chatbot.core.model.InboundMessageRequest;
 import com.grant.chatbot.core.model.ReplySuggestionResponse;
 import com.grant.chatbot.core.service.ChatOrchestrator;
 import jakarta.validation.Valid;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/messages")
+@CrossOrigin(origins = "http://localhost:3000")
 public class MessageController {
     private final ChatOrchestrator chatOrchestrator;
 
