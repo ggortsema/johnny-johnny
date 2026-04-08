@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/messages")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(originPatterns = "http://*:3000")
 public class MessageController {
     private final ChatOrchestrator chatOrchestrator;
 
